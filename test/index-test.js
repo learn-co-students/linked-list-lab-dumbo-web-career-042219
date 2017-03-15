@@ -1,9 +1,8 @@
-/*global afterEach, beforeEach, describe, it */
+var chai = require('chai');
+var sinon = require('sinon');
 
 
 beforeEach(function() {
-  setCart([])
-
   expect.spyOn(console, 'log')
 })
 
@@ -11,125 +10,90 @@ afterEach(function() {
   expect.restoreSpies()
 })
 
-describe('#addToCart', function() {
-  it("should add an item to the cart", function() {
-    addToCart('pizza')
+describe('#printString', function() {
+  it("should print all of the ", function() {
+    printString('pizza')
 
-    expect(getCart().length).toEqual(1);
+    expect(console.log).toHaveBeenCalledWith("p")
+    expect(console.log).toHaveBeenCalledWith("i")
+    expect(console.log).toHaveBeenCalledWith("z")
+    expect(console.log).toHaveBeenCalledWith("z")
+    expect(console.log).toHaveBeenCalledWith("a")
   });
 
-  it("logs that the item has been added", function() {
-    addToCart('pizza')
-
-    expect(console.log).toHaveBeenCalledWith("pizza has been added to your cart.")
-  })
-
-  it("returns the cart", function() {
-    expect(addToCart("pizza")).toEqual(getCart())
-  })
-
-  it("adds item dynamically", function() {
-    addToCart('pizza');
-    expect(getCart()[0]['item']).toEqual(undefined)
+  it("calls the function once for each letter in the string", function() {
+    var printString = sinon.spy(window, "printString");
+    printString("pizza")
+    expect(printString.callCount).toEqual(5)
   })
 });
 
-describe('#viewCart', function() {
-  it("should print each item in the cart and their cost", function() {
-    addToCart("socks");
-    addToCart("puppy");
-    addToCart("iPhone");
-
-    const socksCost = getCart()[0]["socks"];
-    const puppyCost = getCart()[1]["puppy"];
-    const iPhoneCost = getCart()[2]["iPhone"];
-
-    viewCart();
-
-    expect(console.log).toHaveBeenCalledWith(
-      `In your cart, you have socks at $${socksCost}, puppy at $${puppyCost}, iPhone at $${iPhoneCost}.`
-    )
+describe('#reverseString', function() {
+  it("should reverse all of the letters of a string", function() {
+    expect(reverseString('pizza')).toEqual("azzip")
   });
 
-  it("should print 'Your shopping cart is empty.' if the cart is empty", function() {
-    viewCart();
+  it("should make the proper recursive calls", function() {
+    var reverseString = sinon.spy(window, "reverseString");
+    reverseString("pizza")
+    expect(reverseString.callCount).toEqual(5)
+  })
+});
 
-    expect(console.log).toHaveBeenCalledWith("Your shopping cart is empty.")
+
+describe('#isPalindrome', function() {
+  it("should return false when a string is not a palindrome", function() {
+    expect(isPalindrome('pizza')).toEqual(false)
+  });
+
+  it("should return true when a string is a palindrome", function() {
+    expect(isPalindrome("madamimadam")).toEqual(true)
+  });
+
+  it("should make the proper recursive calls", function() {
+    var isPalindrome = sinon.spy(window, "isPalindrome");
+    isPalindrome("madamimadam")
+    expect(isPalindrome.callCount).toEqual(6)
+  })
+});
+
+describe('#addUpTo', function() {
+  it("should add up to a given index in an array", function() {
+    expect(addUpTo([1, 4, 5, 3], 2)).toEqual(10)
+  });
+
+  it("should make the proper recursive calls", function() {
+    var addUpTo = sinon.spy(window, "addUpTo");
+    addUpTo([1, 4, 5, 3], 2)
+    expect(addUpTo.callCount).toEqual(3)
   });
 });
 
-describe('#total', function() {
-  it('adds up the prices of the items in the cart', function() {
-    addToCart("socks");
-    addToCart("puppy");
-    addToCart("iPhone");
-
-    const socksCost = getCart()[0]["socks"];
-    const puppyCost = getCart()[1]["puppy"];
-    const iPhoneCost = getCart()[2]["iPhone"];
-
-    const totalCost = socksCost + puppyCost + iPhoneCost;
-
-    expect(total()).toEqual(totalCost)
-  })
-})
-
-describe('#removeFromCart', function() {
-  it("removes the item from the cart", function() {
-    addToCart('pizza')
-
-    expect(hasItem(getCart(), 'pizza')).toBe(true)
-
-    removeFromCart("pizza");
-
-    expect(getCart()).toEqual([]);
+describe('#maxOf', function() {
+  it("should find the maximum integer in an array", function() {
+    expect(maxOf([1, 4, 5, 3])).toEqual(5)
   });
 
-  it("alerts you if you're trying to remove an item that isn't in your cart", function() {
-    removeFromCart("sock")
-
-    expect(console.log).toHaveBeenCalledWith("That item is not in your cart.")
+  it("should make the proper recursive calls", function() {
+    var maxOf = sinon.spy(window, "maxOf");
+    maxOf([1, 4, 5, 3])
+    expect(maxOf.callCount).toEqual(4)
   });
 });
 
-describe('#placeOrder', function() {
-  it("doesn't let you place an order if you don't provide a credit card number", function() {
-    placeOrder();
 
-    expect(console.log).toHaveBeenCalledWith(
-      "We don't have a credit card on file for you to place your order."
-    )
+describe('#includesNumber', function() {
+  it("should return true if the number is included in the array", function() {
+    expect(includesNumber([1, 4, 5, 3], 5)).toEqual(true)
   });
 
-  it("lets you place an order with a credit card", function() {
-    addToCart('pizza')
-
-    const t = total()
-
-    placeOrder(123);
-
-    expect(console.log).toHaveBeenCalledWith(
-      `Your total cost is $${t}, which will be charged to the card 123.`
-    )
+  it("should return false if the number is not included in the array", function() {
+    expect(includesNumber([1, 4, 2, 3], 5)).toEqual(false)
   });
 
-  it('empties the cart', function() {
-    addToCart('pizza')
-
-    expect(hasItem(getCart(), 'pizza')).toBe(true)
-
-    placeOrder(123);
-
-    expect(getCart()).toEqual([])
-  })
-})
-
-function hasItem(c, item) {
-  for (let i = 0, l = c.length; i < l; i++) {
-    if (c[i].hasOwnProperty(item)) {
-      return true
-    }
-  }
-
-  return false
-}
+  it("should make the proper recursive calls", function() {
+    var includesNumber = sinon.spy(window, "includesNumber");
+    includesNumber([1, 4, 5, 3], 3)
+    expect(includesNumber.callCount).toEqual(4)
+  });
+});
