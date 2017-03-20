@@ -1,59 +1,59 @@
-function printString(string){
-  console.log(string[0])
-  if(string.length > 1){
-    let substring = string.substring(1, string.length)
-    printString(substring)
-  } else{
-    return true
-  }
+function getName(node){
+  return node.name;
 }
 
-function reverseString(string){
-  // pizza
-  // a +
-  if(string.length > 1){
-    let substring = string.substring(0, string.length -1)
-    return string[string.length -1] + reverseString(substring)
+function next(node, collection){
+  let nextAddress = node.next
+  return collection[`${nextAddress}`]
+}
+
+function addressAt(index, linkedList, collection){
+  if(index == 0){
+    return linkedList
   } else {
-    return string
+    let node = nodeAt(index-1, linkedList, collection)
+    return node.next
   }
 }
 
-
-function isPalindrome(string){
-  if(string.length < 2){
-    return true
-  } else {
-    let substring = string.substring(1, string.length - 1)
-    return (string[0] == string[string.length -1] && isPalindrome(substring))
-  }
+function headNode(linkedList, collection){
+  return collection[linkedList]
 }
 
-function addUpTo(array, index){
-  if(index === 0){
-    return array[0]
-  } else {
-    return addUpTo(array, index-1) + array[index]
+function nodeAt(index, linkedList, collection){
+  let currentNode = headNode(linkedList, collection);
+  for(let i = 0; i < index; i++){
+     currentNode = next(currentNode, collection);
   }
+
+  return currentNode;
+}
+
+function indexAt(node, collection, linkedList){
+  let currentNode = headNode(linkedList, collection);
+  let currentIdx = 0
+  while(currentNode != node){
+    currentIdx++
+    currentNode = next(currentNode, collection)
+  }
+  return currentIdx
 }
 
 
-function maxOf(array){
-  if(array.length == 1){
-    return array[0]
-  } else {
-    let subArray = array.slice(0, array.length -1)
-    let currentMax = maxOf(subArray)
-    let newMax = currentMax > array[array.length -1] ? currentMax : array[array.length -1]
-    return newMax;
-  }
+function insertNodeAt(index, newNodeAddress, linkedList, collection){
+  let previousNode = nodeAt(index - 1, linkedList, collection)
+  let subsequentNode = nodeAt(index, linkedList, collection)
+
+  let previousNodeIdx = indexAt(previousNode, collection, linkedList)
+  let subsequentNodeIdx = indexAt(subsequentNode, collection, linkedList)
+  let previousNodeAddress = addressAt(previousNode, linkedList, collection)
+  let subsequentNodeAddress = addressAt(subsequentNode, linkedList, collection)
+  previousNode.next = newNodeAddress
+  let newNode = collection[newNodeAddress]
+  newNode.next = subsequentNodeAddress
 }
 
-function includesNumber(array, number){
-  if(array.length < 2){
-    return (array[0] == number)
-  }else{
-    let subarray = array.slice(0, array.length - 1)
-    return(includesNumber(subarray, number) || (array[array.length -1] == number))
-  }
+function setNext(node, nextNode, collection, linkedList){
+
+>>>>>>> master
 }

@@ -2,7 +2,7 @@
   "name": "js-basics-online-shopping-lab",
   "version": "0.1.0",
   "description": "Practice with objects, arrays, and functions in JavaScript on Learn",
-  "main": "shopping.js",
+  "main": "index.js",
   "directories": {
     "test": "test"
   },
