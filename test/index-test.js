@@ -1,104 +1,131 @@
 var chai = require('chai');
 var sinon = require('sinon');
+// change to give addresses of head,
+// write function called get head.
 
 
-beforeEach(function() {
-  expect.spyOn(console, 'log')
+describe('#getName', function() {
+  it("should return the name of the node passed through", function() {
+    let node = {name: 'Susie'}
+    expect(getName(node)).toEqual('Susie')
+  });
+});
+
+describe('#head', function() {
+  it("should return head node of the linked list", function() {
+    let firstNode = {name: 'susie', next: 'rkjasj'}
+    let secondNode = {name: 'sam', next: 'asnan'}
+    let lastNode = {name: 'charlie', next: null}
+    let collection = {rkjasj: secondNode, asnan: lastNode, whana: firstNode}
+    let linkedList = 'whana'
+    let head = collection[linkedList]
+    expect(headNode(linkedList, collection)).toEqual(head)
+  });
+});
+
+describe('#next', function() {
+  it("should return the following node every time it is called", function() {
+    let firstNode = {name: 'susie', next: 'rkjasj'}
+    let secondNode = {name: 'sam', next: 'asnan'}
+    let lastNode = {name: 'charlie', next: null}
+    let collection = {rkjasj: secondNode, asnan: lastNode, whana: firstNode}
+    let linkedList = 'whana'
+    let head = collection[linkedList]
+    expect(next(head, collection)).toEqual(secondNode)
+  });
+
+  it("returns the correct node when called multiple times", function() {
+    let firstNode = {name: 'susie', next: 'rkjasj'}
+    let secondNode = {name: 'sam', next: 'asnan'}
+    let lastNode = {name: 'charlie', next: null}
+    let collection = {rkjasj: secondNode, asnan: lastNode, whana: firstNode}
+    let linkedList = 'whana'
+    let head = collection[linkedList]
+    let nextNode = next(head, collection)
+    let nextNextNode = next(nextNode, collection)
+    expect(nextNextNode).toEqual(lastNode)
+  });
+});
+
+describe('#nodeAt', function() {
+  it("should return at the provided index", function() {
+    let firstNode = {name: 'susie', next: 'rkjasj'}
+    let secondNode = {name: 'sam', next: 'asnan'}
+    let lastNode = {name: 'charlie', next: null}
+    let collection = {rkjasj: secondNode, asnan: lastNode, whana: firstNode}
+    let linkedList = 'whana'
+    expect(nodeAt(0, linkedList, collection)).toEqual(firstNode)
+    expect(nodeAt(2, linkedList, collection)).toEqual(lastNode)
+  });
+});
+
+describe('#addressAt', function(){
+  it("should return the address of the node at the address", function() {
+    let firstNode = {name: 'susie', next: 'rkjasj'}
+    let secondNode = {name: 'sam', next: 'asnan'}
+    let lastNode = {name: 'charlie', next: null}
+    let collection = {rkjasj: secondNode, asnan: lastNode, whana: firstNode}
+    let linkedList = 'whana'
+    expect(addressAt(1, linkedList, collection)).toEqual('rkjasj')
+    expect(addressAt(0, linkedList, collection)).toEqual('whana')
+
+  })
 })
 
-afterEach(function() {
-  expect.restoreSpies()
+describe('#indexAt', function() {
+  it("should return the index of the provided node", function() {
+    let firstNode = {name: 'susie', next: 'rkjasj'}
+    let secondNode = {name: 'sam', next: 'asnan'}
+    let lastNode = {name: 'charlie', next: null}
+    let linkedList = 'whana'
+    let collection = {rkjasj: secondNode, asnan: lastNode, whana: firstNode}
+    expect(indexAt(firstNode, collection, linkedList)).toEqual(0)
+    expect(indexAt(secondNode, collection, linkedList)).toEqual(1)
+  })
 })
 
-describe('#printString', function() {
-  it("should print all of the ", function() {
-    printString('pizza')
-
-    expect(console.log).toHaveBeenCalledWith("p")
-    expect(console.log).toHaveBeenCalledWith("i")
-    expect(console.log).toHaveBeenCalledWith("z")
-    expect(console.log).toHaveBeenCalledWith("z")
-    expect(console.log).toHaveBeenCalledWith("a")
-  });
-
-  it("calls the function once for each letter in the string", function() {
-    var printString = sinon.spy(window, "printString");
-    printString("pizza")
-    expect(printString.callCount).toEqual(5)
+describe('#insertNodeAt', function() {
+  it("should set the next property of the inserted node", function() {
+    let firstNode = {name: 'susie', next: 'rkjasj'}
+    let secondNode = {name: 'sam', next: 'asnan'}
+    let newNode = {name: 'jill', next: ''}
+    let lastNode = {name: 'charlie', next: null}
+    let collection = {rkjasj: secondNode,
+      asnan: lastNode,
+      whana: firstNode,
+      ajhsak: newNode}
+    let linkedList = 'whana'
+    insertNodeAt(1, 'ajhsak', linkedList, collection)
+    expect(newNode.next).toEqual('rkjasj')
   })
 
-  it("adds item dynamically", function() {
-    addToCart('pizza');
-    expect(getCart()[0]['item']).toEqual(undefined)
+  it("should set the next property of the node previous to the inserted node", function() {
+    let firstNode = {name: 'susie', next: 'rkjasj'}
+    let secondNode = {name: 'sam', next: 'asnan'}
+    let newNode = {name: 'jill', next: ''}
+    let lastNode = {name: 'charlie', next: null}
+    let collection = {rkjasj: secondNode,
+      asnan: lastNode,
+      whana: firstNode,
+      ajhsak: newNode}
+    let linkedList = 'whana'
+    insertNodeAt(1, 'ajhsak', linkedList, collection)
+    expect(firstNode.next).toEqual('ajhsak')
   })
-});
 
-describe('#reverseString', function() {
-  it("should reverse all of the letters of a string", function() {
-    expect(reverseString('pizza')).toEqual("azzip")
-  });
+  it("should insert the node at the provided index, while maintaining order of all the other nodes", function() {
+    let firstNode = {name: 'susie', next: 'rkjasj'}
+    let secondNode = {name: 'sam', next: 'asnan'}
+    let newNode = {name: 'jill', next: ''}
+    let lastNode = {name: 'charlie', next: null}
+    let collection = {rkjasj: secondNode,
+      asnan: lastNode,
+      whana: firstNode,
+      ajhsak: newNode}
+    let linkedList = 'whana'
 
-  it("should make the proper recursive calls", function() {
-    var reverseString = sinon.spy(window, "reverseString");
-    reverseString("pizza")
-    expect(reverseString.callCount).toEqual(5)
-  })
-});
-
-
-describe('#isPalindrome', function() {
-  it("should return false when a string is not a palindrome", function() {
-    expect(isPalindrome('pizza')).toEqual(false)
-  });
-
-  it("should return true when a string is a palindrome", function() {
-    expect(isPalindrome("madamimadam")).toEqual(true)
-  });
-
-  it("should make the proper recursive calls", function() {
-    var isPalindrome = sinon.spy(window, "isPalindrome");
-    isPalindrome("madamimadam")
-    expect(isPalindrome.callCount).toEqual(6)
-  })
-});
-
-describe('#addUpTo', function() {
-  it("should add up to a given index in an array", function() {
-    expect(addUpTo([1, 4, 5, 3], 2)).toEqual(10)
-  });
-
-  it("should make the proper recursive calls", function() {
-    var addUpTo = sinon.spy(window, "addUpTo");
-    addUpTo([1, 4, 5, 3], 2)
-    expect(addUpTo.callCount).toEqual(3)
-  });
-});
-
-describe('#maxOf', function() {
-  it("should find the maximum integer in an array", function() {
-    expect(maxOf([1, 4, 5, 3])).toEqual(5)
-  });
-
-  it("should make the proper recursive calls", function() {
-    var maxOf = sinon.spy(window, "maxOf");
-    maxOf([1, 4, 5, 3])
-    expect(maxOf.callCount).toEqual(4)
-  });
-});
-
-
-describe('#includesNumber', function() {
-  it("should return true if the number is included in the array", function() {
-    expect(includesNumber([1, 4, 5, 3], 5)).toEqual(true)
-  });
-
-  it("should return false if the number is not included in the array", function() {
-    expect(includesNumber([1, 4, 2, 3], 5)).toEqual(false)
-  });
-
-  it("should make the proper recursive calls", function() {
-    var includesNumber = sinon.spy(window, "includesNumber");
-    includesNumber([1, 4, 5, 3], 3)
-    expect(includesNumber.callCount).toEqual(4)
+    insertNodeAt(1, 'ajhsak', linkedList, collection)
+    expect(nodeAt(1, linkedList, collection)).toEqual(newNode)
+    expect(nodeAt(2, linkedList, collection)).toEqual(secondNode)
   });
 });
