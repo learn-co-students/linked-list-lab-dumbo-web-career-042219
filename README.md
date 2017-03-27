@@ -10,9 +10,9 @@ Alexandra -> Kirstin -> Juliet -> Timmy -> Jacob
 
 1. We would like to structure each node as a javascript object, so each node will look like the following:
 
-  `{name: 'Alexandra', next: 'Kirstin'}`
+  `{name: 'Alexandra', next: 'addressOfNextPerson'}`
 
-2. The collection of nodes should also be stored as a Javascript object.  The keys of the collection will represent each node's address.  That address can be anything as long as the value of next points to that address.  For now, we'll just have the keys be a random string of digits.  The key next of each node points to the next node's address.
+2. The collection of nodes should also be stored as a Javascript object.  The keys of the object will represent each node's address.  That address can be anything as long as the value of next points to that address.  For now, we'll just have the keys be a random string of digits.  The key next of each node points to the next node's address.
 
 ```javascript
   let collection = {rnadnm: {name: 'ferris', next: 'masjdrandm'},
