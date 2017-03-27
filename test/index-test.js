@@ -129,3 +129,34 @@ describe('#insertNodeAt', function() {
     expect(nodeAt(2, linkedList, collection)).toEqual(secondNode)
   });
 });
+
+describe('#deleteNodeAt', function() {
+  it("should set the next property of the node previous to the deleted node", function() {
+    let firstNode = {name: 'susie', next: 'rkjasj'}
+    let secondNode = {name: 'sam', next: 'asnan'}
+    let newNode = {name: 'jill', next: ''}
+    let lastNode = {name: 'charlie', next: null}
+    let collection = {rkjasj: secondNode,
+      asnan: lastNode,
+      whana: firstNode,
+      ajhsak: newNode}
+      let linkedList = 'whana'
+      deleteNodeAt(1, linkedList, collection)
+      expect(firstNode.next).toEqual('asnan')
+    })
+
+    it("should delete the node at the provided index, while maintaining order of all the other nodes", function() {
+      let firstNode = {name: 'susie', next: 'rkjasj'}
+      let secondNode = {name: 'sam', next: 'asnan'}
+      let lastNode = {name: 'charlie', next: null}
+      let collection = {rkjasj: secondNode,
+        asnan: lastNode,
+        whana: firstNode,
+        ajhsak: newNode}
+        let linkedList = 'whana'
+
+      deleteNodeAt(1, 'ajhsak', linkedList, collection)
+      expect(nodeAt(1, linkedList, collection)).toEqual(secondNode)
+      expect(nodeAt(2, linkedList, collection)).toEqual(lastNode)
+  });
+})
