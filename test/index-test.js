@@ -151,12 +151,13 @@ describe('#deleteNodeAt', function() {
       let lastNode = {name: 'charlie', next: null}
       let collection = {rkjasj: secondNode,
         asnan: lastNode,
-        whana: firstNode,
-        ajhsak: newNode}
+        whana: firstNode}
+
         let linkedList = 'whana'
 
-      deleteNodeAt(1, 'ajhsak', linkedList, collection)
-      expect(nodeAt(1, linkedList, collection)).toEqual(secondNode)
-      expect(nodeAt(2, linkedList, collection)).toEqual(lastNode)
+      deleteNodeAt(1, linkedList, collection)
+      expect(nodeAt(0, linkedList, collection)).toEqual(firstNode)
+      expect(nodeAt(1, linkedList, collection)).toEqual(lastNode)
+
   });
 })
