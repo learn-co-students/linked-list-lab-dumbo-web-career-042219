@@ -61,7 +61,5 @@ function deleteNodeAt(index, linkedList, collection){
      previousNode = currentNode
      currentNode = next(currentNode, collection);
   }
-  console.log(previousNode)
-  console.log(currentNode)
   previousNode.next = currentNode.next
 }
