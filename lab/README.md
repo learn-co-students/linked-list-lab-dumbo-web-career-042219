@@ -24,4 +24,4 @@ Alexandra -> Kirstin -> Juliet -> Timmy -> Jacob
 
 4. Write a function called next that takes in a node, and can return the next node.  We need to provide that function our collection of nodes as an argument.
 
-Complete the rest of the tests as instructed.  
+5. Write a function called nodeAt that passed in an index returns the node at that index.  Remember that a linked list has a pointer to the head.
