@@ -8,7 +8,7 @@ At our deli, there are a list of cashiers who have to tell each other when someo
 Alexandra -> Kirstin -> Juliet -> Timmy -> Jacob
 ```
 
-![](https://i.ytimg.com/vi/QYYLfaKQtIk/hqdefault.jpg)
+![](	https://s3-us-west-2.amazonaws.com/curriculum-content/web-development/algorithms/linkedlistlab.jpg)
 
 We would like to represent this chain as a linked list.  Each node as a javascript object, so each node will look like the following:
 
@@ -18,9 +18,10 @@ The collection of nodes should also be stored as a Javascript object.  The keys 
 
 ```javascript
   let collection = {rnadnm: {name: 'Alexandra', next: 'masjdrandm'},
-    masjdrandm: {name: 'Kirstin', next: 'ntrandm'},
+    masjdrandm: {name: 'Kirstin', next: 'ntrandm'}, 
     ntrandm: {name: 'Juliet', next: null}
   }
 ```
 
-The problem comes about when new workers join and leave the grocery store staff.  We need a linked list to manage all of these changes, so that we can easily remove and add people to our collection yet allow the rest of the collection to work as it did previously.
+
+Complete the tests as instructed.  
