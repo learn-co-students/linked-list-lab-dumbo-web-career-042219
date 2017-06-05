@@ -10,11 +10,11 @@ Alexandra -> Kirstin -> Juliet -> Timmy -> Jacob
 
 ![](	https://s3-us-west-2.amazonaws.com/curriculum-content/web-development/algorithms/linkedlistlab.jpg)
 
-We would like to represent this chain as a linked list.  Each node as a javascript object, so each node will look like the following:
+We would like to represent this chain as a linked list.  Each node as a JavaScript object, so each node will look like the following:
 
   `{name: 'Alexandra', next: 'addressOfNextPerson'}`
 
-The collection of nodes should also be stored as a Javascript object.  The keys of the object will represent each node's address.  That address can be anything as long as the value of next points to that address.  For now, we'll just have the keys be a random string of digits.  The key next of each node points to the next node's address.
+The collection of nodes should also be stored as a JavaScript object.  The keys of the object will represent each node's address.  That address can be anything as long as the value of `next` points to that address.  For now, we'll just have the keys be a random string of digits.  The key `next` of each node points to the next node's address.
 
 ```javascript
   let collection = {rnadnm: {name: 'Alexandra', next: 'masjdrandm'},
