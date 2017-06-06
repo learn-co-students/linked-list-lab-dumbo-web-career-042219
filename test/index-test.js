@@ -11,7 +11,7 @@ describe('#getName', function() {
   });
 });
 
-describe('#head', function() {
+describe('#headNode', function() {
   it("should return head node of the linked list", function() {
     let firstNode = {name: 'susie', next: 'rkjasj'}
     let secondNode = {name: 'sam', next: 'asnan'}
@@ -48,7 +48,7 @@ describe('#next', function() {
 });
 
 describe('#nodeAt', function() {
-  it("should return at the provided index", function() {
+  it("should return the node at the provided index", function() {
     let firstNode = {name: 'susie', next: 'rkjasj'}
     let secondNode = {name: 'sam', next: 'asnan'}
     let lastNode = {name: 'charlie', next: null}
